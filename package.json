@@ -1,7 +1,7 @@
 {
   "name": "gifbrew",
   "author": "uiureo",
-  "description": "Creating gif animations much easier"
+  "description": "Creating gif animations much easier",
   "version": "0.0.1",
   "bin": {
     "gifbrew": "./bin/gifbrew"
