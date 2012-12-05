@@ -1,11 +1,34 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <title>{{ title }}</title>
+    <title>GIFBREW</title>
+    <script src="//ajax.googleapis.com/ajax/libs/jquery/1.8.3/jquery.min.js"></script>
+    <script type="text/javascript" src="/javascripts/underscore-min.js"></script>
+    <script type="text/javascript" src="/javascripts/client.js"></script>
     <link rel='stylesheet' href='/stylesheets/style.css' />
   </head>
   <body>
-    <h1>{{ title }}</h1>
-    <p>Welcome to {{ title }}</p>
+    <h1>GIFBREW</h1>
+    <div id="images"></div>
+    <div id="debug"></div>
+    <button id="get_gif">GET GIF</button>
+    <div id="gifs_container">
+      <div id="gifs">
+      </div>
+      <div id="loader_box">
+        <img src="/images/ajax-loader.gif" alt="loader" id="loader" />
+      </div>
+    </div>
+    
+
+    <script id="image_template" type="text/template">
+      <div class="image_box">
+        <img src="<%- path %>" class="image" />
+      </div>
+    </script>
+
+    <script id="gif_template" type="text/javascript">
+      <img src="<%- path %>" class="gif" />
+    </script>
   </body>
 </html>

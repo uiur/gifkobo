@@ -1,0 +1,12 @@
+#!/usr/bin/env node
+
+var program = require('commander');
+
+program
+  .version('0.0.1')
+  .usage('<dir>')
+  .parse(process.argv);
+
+exports.image_dir = program.args[0];
+
+require('../app.js');

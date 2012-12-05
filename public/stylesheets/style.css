@@ -6,3 +6,30 @@ body {
 a {
   color: #00B7FF;
 }
+
+.image_box {
+  display: inline-block;
+  width: 110px;
+  height: 110px;
+}
+
+.image {
+  width: 100px;
+  height: 100px;
+}
+
+.image_selected {
+  border: 2px solid #ff00ff;
+}
+
+#loader {
+  display: none;
+}
+
+#gifs {
+  display: inline-block;
+}
+
+#loader_box {
+  display: inline-block;
+}

@@ -1,12 +1,15 @@
 {
-  "name": "application-name",
+  "name": "gifbrew",
+  "author": "uiureo",
+  "description": "Creating gif animations much easier"
   "version": "0.0.1",
-  "private": true,
-  "scripts": {
-    "start": "node app"
+  "bin": {
+    "gifbrew": "./bin/gifbrew"
   },
   "dependencies": {
     "express": "3.0.0",
-    "hjs": "*"
+    "hjs": "*",
+    "commander": "*",
+    "imagemagick": "*"
   }
 }
