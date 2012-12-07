@@ -1,8 +1,3 @@
-
-/**
- * Module dependencies.
- */
-
 var express = require('express')
   , http = require('http')
   , path = require('path');
@@ -19,6 +14,7 @@ app.configure(function(){
   app.set('views', __dirname + '/views');
   app.set('view engine', 'hjs');
   app.set('image_dir', module.parent.exports.image_dir || __dirname);
+  app.set('thumb_dir', path.join(app.get('image_dir'), 'thumbs'));
   app.use(express.favicon());
   app.use(express.logger('dev'));
   app.use(express.bodyParser());
@@ -34,6 +30,7 @@ app.configure('development', function(){
 
 app.get('/', routes.index.index);
 app.get('/api/images.json', routes.api.images);
+app.get('/api/thumbs.json', routes.api.thumbs);
 app.get('/gif', routes.api.gif);
 app.get('/gif.json', routes.api.gifJSON);
 

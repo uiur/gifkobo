@@ -1,12 +1,50 @@
 #!/usr/bin/env node
 
-var program = require('commander');
+var program = require('commander')
+  , fs = require('fs')
+  , path = require('path')
+  , async = require('async')
+  , im = require('imagemagick')
+  , utils = require('../lib/utils.js');
+
+var THUMB_SIZE = '100x100';
 
 program
   .version('0.0.1')
   .usage('<dir>')
   .parse(process.argv);
 
-exports.image_dir = program.args[0];
+var image_dir = program.args[0]
+  , thumb_dir = path.join(image_dir, 'thumbs');
 
-require('../app.js');
+exports.image_dir = image_dir;
+
+function generateThumbs(finish) {
+  var raw_images = utils.selectImage(fs.readdirSync(image_dir))
+    , thumbs = utils.selectImage(fs.readdirSync(thumb_dir))
+    , not_thumbed = [];
+
+  raw_images.forEach(function (image) {
+    if (thumbs.indexOf(image) === -1) {
+      not_thumbed.push(image);
+    }
+  });
+
+  console.log("Generating thumbnails.....");
+
+  async.parallel(not_thumbed.map(function (image) {
+    return function (cb) { im.convert(['-geometry', THUMB_SIZE, path.join(image_dir, image), path.join(thumb_dir, image)], cb); };
+  }), function () {
+    console.log("Done.\n");
+    finish(null);
+  });
+};
+
+async.series([
+  function (cb) { fs.mkdir(path.join(image_dir, 'gifs'), function () { cb(null); }); }
+, function (cb) { fs.mkdir(thumb_dir, function () { cb(null); }); }
+, function (cb) { generateThumbs(cb); }
+], function () {
+  require('../app.js');
+});
+

@@ -1,7 +1,7 @@
 $(function () {
   var image_template = _.template($('#image_template').text());
 
-  $.get('/api/images.json')
+  $.get('/api/thumbs.json')
    .success(function (data) {
      _.each(data, function (file) {
        $("#images").append(image_template({ path: file }));
@@ -12,7 +12,7 @@ $(function () {
 
   $('#images').on('click', '.image', function () {
     var $image = $(this)
-      , src = $image.attr('src');
+      , src = $image.attr('src').split('/').pop();
 
     if ($image.hasClass('image_selected')) {
       selected_images.splice(selected_images.indexOf(src), 1);
