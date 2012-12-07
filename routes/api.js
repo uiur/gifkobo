@@ -15,7 +15,12 @@ exports.images = function (req, res) {
   });
 };
 
-var createGIF = function (images, callback) {
+var createGIF = function (args, callback) {
+  var images = args.images.map(function (image) { return app.get('image_dir') + image; })
+    , delay = args.delay || 10
+    , size = args.size || 400;
+
+
   var sha1 = crypto.createHash('sha1');
   sha1.update(images.join(','), 'ascii');
 
@@ -23,10 +28,8 @@ var createGIF = function (images, callback) {
     , gif_path = path.join('gifs', filename)
     , gif_fs_path = path.join(app.get('image_dir'), gif_path);
 
-  images = images.map(function (image) { return app.get('image_dir') + image; });
-
   fs.mkdir(path.join(app.get('image_dir'), 'gifs'), function () {
-    im.convert(['-geometry', '400x400', '-delay', 10, '-loop', 0].concat(images, gif_fs_path), function(err) {
+    im.convert(['-geometry', size + 'x' + size, '-delay', delay, '-loop', 0].concat(images, gif_fs_path), function(err) {
       callback(err, gif_path);
     });
   });
@@ -34,7 +37,7 @@ var createGIF = function (images, callback) {
 
 // GET /gif?images[0]=1.jpg&images[1]=2.jpg
 exports.gif = function (req, res) {
-  createGIF(req.query.images, function (err, path) {
+  createGIF(req.query, function (err, path) {
     if (err) {
       console.log(err);
       res.send(500);
@@ -46,7 +49,7 @@ exports.gif = function (req, res) {
 
 // GET /gif.json?images[0]=1.jpg&images[1]=2.jpg
 exports.gifJSON = function (req, res) {
-  createGIF(req.query.images, function (err, path) {
+  createGIF(req.query, function (err, path) {
     if (err) {
       console.log(err);
       res.send(500);

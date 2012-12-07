@@ -27,16 +27,19 @@ $(function () {
 
   var gif_template = _.template($('#gif_template').text())
     , gif_loading = false
-    , $loader = $('#loader');
+    , $loader = $('#loader')
+    , $gif_delay = $('#gif_delay')
+    , $gif_delay_value = $('#gif_delay_value')
+    , $gif_size = $('#gif_size');
 
   $('#get_gif').click(function (e) {
     e.preventDefault();
 
-    if (!gif_loading) {
+    if (selected_images.length > 0 && !gif_loading) {
       gif_loading = true;
       $loader.show();
 
-      $.get('/gif.json?' + $.param({ images: selected_images }))
+      $.get('/gif.json?' + $.param({ images: selected_images, delay: $gif_delay.val(), size: $gif_size.val() }))
       .success(function (data) {
         gif_loading = false;
         $loader.hide();
@@ -45,4 +48,9 @@ $(function () {
       });
     }
   });
+
+  $gif_delay_value.text($gif_delay.val());
+  $gif_delay.change(_.throttle(function () {
+    $gif_delay_value.text($gif_delay.val());
+  }, 100));
 });
