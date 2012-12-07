@@ -33,3 +33,7 @@ a {
 #loader_box {
   display: inline-block;
 }
+
+#gif_delay {
+  width: 400px;
+}

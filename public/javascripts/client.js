@@ -49,8 +49,8 @@ $(function () {
     }
   });
 
-  $gif_delay_value.text($gif_delay.val());
+  $gif_delay_value.text($gif_delay.val() * 10);
   $gif_delay.change(_.throttle(function () {
-    $gif_delay_value.text($gif_delay.val());
+    $gif_delay_value.text($gif_delay.val() * 10);
   }, 100));
 });
