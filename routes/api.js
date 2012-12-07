@@ -22,7 +22,7 @@ var createGIF = function (args, callback) {
 
 
   var sha1 = crypto.createHash('sha1');
-  sha1.update(images.join(','), 'ascii');
+  sha1.update(images.join(',') + '-' + delay + '-' + size, 'ascii');
 
   var filename = sha1.digest('hex') + '.gif'
     , gif_path = path.join('gifs', filename)
