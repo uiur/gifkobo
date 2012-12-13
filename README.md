@@ -1,4 +1,4 @@
-# gifbrew
+# gifkobo
 
 A web tool for creating gif animations like GifBoom.
 
@@ -6,9 +6,9 @@ A web tool for creating gif animations like GifBoom.
 
 ``` bash
 $ npm install
-$ ./bin/gifbrew /path/to/your/images/
+$ ./bin/gifkobo /path/to/your/images/
 ```
 To specify a port number:
 ``` bash
-$ PORT=6789 ./bin/gifbrew /path/to/your/images/
+$ PORT=6789 ./bin/gifkobo /path/to/your/images/
 ```
