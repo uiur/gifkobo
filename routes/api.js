@@ -76,7 +76,8 @@ exports.upload = function (req, res) {
   if (file && file.image_file) {
     var ext = typeToExt(file.image_file.type)
       , filename = utils.filename(file.image_file.path, ext)
-      , image_path = path.join(app.get('image_dir'), filename);
+      , image_path = path.join(app.get('image_dir'), filename)
+      , thumb_path = path.join(app.get('thumb_dir'), filename);
 
     fs.rename( file.image_file.path, image_path, function (err) {
       if (err) {
@@ -84,7 +85,9 @@ exports.upload = function (req, res) {
         return;
       }
 
-      res.json({ path: filename });
+      im.generateThumb({ from: image_path, to: thumb_path }, function (err) {
+        res.json({ path: 'thumbs/' + filename });
+      });
     });
   } else if (req.body.image_url) {
     request.get({
@@ -103,7 +106,8 @@ exports.upload = function (req, res) {
       }
 
       var filename = utils.filename(req.body.image_url, ext)
-        , image_path = path.join(app.get('image_dir'), filename);
+        , image_path = path.join(app.get('image_dir'), filename)
+        , thumb_path = path.join(app.get('thumb_dir'), filename);
 
       fs.writeFile(image_path, body, function (err) {
         if (err) {
@@ -111,7 +115,9 @@ exports.upload = function (req, res) {
           return;
         }
 
-        res.json({ path: filename });
+        im.generateThumb({ from: image_path, to: thumb_path }, function (err) {
+          res.json({ path: 'thumbs/' + filename });
+        });
       });
     });
   } else {
