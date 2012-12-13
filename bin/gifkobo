@@ -15,7 +15,12 @@ program
 var THUMB_SIZE = 100;
 
 var image_dir = program.args[0]
-  , thumb_dir = path.join(image_dir, 'thumbs');
+
+if (image_dir.slice(-1) !== '/') {
+  image_dir += '/';
+}
+
+var thumb_dir = path.join(image_dir, 'thumbs');
 
 exports.image_dir = image_dir;
 
