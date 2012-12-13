@@ -1,7 +1,7 @@
 var fs = require('fs')
   , path = require('path')
   , crypto = require('crypto')
-  , im = require('imagemagick')
+  , im = require('../lib/imagemagick_ext.js')
   , utils = require('../lib/utils.js')
   , app = module.parent.exports;
 
@@ -28,26 +28,11 @@ exports.thumbs = function (req, res) {
   });
 };
 
-var createGIF = function (args, callback) {
-  var images = args.images.map(function (image) { return app.get('image_dir') + image; })
-    , delay = args.delay || 10
-    , size = args.size || 400;
-
-  var sha1 = crypto.createHash('sha1');
-  sha1.update(images.join(',') + '-' + delay + '-' + size, 'ascii');
-
-  var filename = sha1.digest('hex') + '.gif'
-    , gif_path = path.join('gifs', filename)
-    , gif_fs_path = path.join(app.get('image_dir'), gif_path);
-
-  im.convert(['-geometry', size + 'x' + size, '-delay', delay, '-loop', 0].concat(images, gif_fs_path), function(err) {
-    callback(err, gif_path);
-  });
-};
-
 // GET /gif?images[0]=1.jpg&images[1]=2.jpg
 exports.gif = function (req, res) {
-  createGIF(req.query, function (err, path) {
+  req.query.image_dir = app.get('image_dir');
+
+  im.createGIF(req.query, function (err, path) {
     if (err) {
       console.log(err);
       res.send(500);
@@ -58,8 +43,11 @@ exports.gif = function (req, res) {
 };
 
 // GET /gif.json?images[0]=1.jpg&images[1]=2.jpg
+// -> { path: '/gifs/hogefuga.gif' }
 exports.gifJSON = function (req, res) {
-  createGIF(req.query, function (err, path) {
+  req.query.image_dir = app.get('image_dir');
+
+  im.createGIF(req.query, function (err, path) {
     if (err) {
       console.log(err);
       res.send(500);

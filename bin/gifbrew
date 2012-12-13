@@ -4,15 +4,15 @@ var program = require('commander')
   , fs = require('fs')
   , path = require('path')
   , async = require('async')
-  , im = require('imagemagick')
+  , im = require('../lib/imagemagick_ext.js')
   , utils = require('../lib/utils.js');
-
-var THUMB_SIZE = '100x100';
 
 program
   .version('0.0.1')
   .usage('<dir>')
   .parse(process.argv);
+
+var THUMB_SIZE = 100;
 
 var image_dir = program.args[0]
   , thumb_dir = path.join(image_dir, 'thumbs');
@@ -33,7 +33,9 @@ function generateThumbs(finish) {
   console.log("Generating thumbnails.....");
 
   async.parallel(not_thumbed.map(function (image) {
-    return function (cb) { im.convert(['-geometry', THUMB_SIZE, path.join(image_dir, image), path.join(thumb_dir, image)], cb); };
+    return function (cb) {
+      im.generateThumb({ from: path.join(image_dir, image), to: path.join(thumb_dir, image), size: THUMB_SIZE }, cb);
+    };
   }), function () {
     console.log("Done.\n");
     finish(null);
