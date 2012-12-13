@@ -85,8 +85,6 @@ $(function () {
     }
 
     GifSim.update({ images: selected_images, delay: $gif_delay.val() });
-
-    $('#debug').text(selected_images.join(', '));
   });
 
   var gif_template = _.template($('#gif_template').text())
