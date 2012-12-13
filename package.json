@@ -11,6 +11,7 @@
     "hjs": "*",
     "commander": "*",
     "imagemagick": "*",
-    "async": "*"
+    "async": "*",
+    "request": "*"
   }
 }

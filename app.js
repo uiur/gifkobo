@@ -31,6 +31,7 @@ app.configure('development', function(){
 app.get('/', routes.index.index);
 app.get('/api/images.json', routes.api.images);
 app.get('/api/thumbs.json', routes.api.thumbs);
+app.post('/api/upload.json', routes.api.upload);
 app.get('/gif', routes.api.gif);
 app.get('/gif.json', routes.api.gifJSON);
 

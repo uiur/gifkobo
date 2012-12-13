@@ -13,6 +13,7 @@ var GifSim = (function(){
 
   that.start = function () {
     if (images.length === 0) {
+      ctx.clearRect(0, 0, canvas.width, canvas.height);
       return;
     }
 
@@ -109,6 +110,42 @@ $(function () {
         $('#gifs').append(gif_template(data));
       });
     }
+  });
+
+  $('#dropbox').on('drop', function (e) {
+    e.preventDefault();
+
+    var form_data = new FormData();
+    var files = e.originalEvent.dataTransfer.files;
+
+    if (files && files.length > 0) {
+      var file = files[0];
+      form_data.append('image_file', file);
+    } else {
+      var image_url = e.originalEvent.dataTransfer.getData('text/plain');
+      if (!image_url) {
+        var node = $(e.originalEvent.dataTransfer.getData('text/html'));
+        image_url = $("<div>").append(node).find('img').attr('src');
+      }
+
+      form_data.append("image_url", image_url);
+    }
+    
+    $.ajax({
+      url: '/api/upload.json'
+    , type: 'POST'
+    , data: form_data
+    , processData: false
+    , contentType: false
+    , dataType: 'json'
+    }).success(function (data) {
+      $("#images").append(image_template({ path: data.path }));
+    });
+
+  }).on('dragenter', function (e) {
+    e.preventDefault();
+  }).on('dragover', function (e) {
+    e.preventDefault();
   });
 
   $gif_delay_value.text($gif_delay.val() * 10);

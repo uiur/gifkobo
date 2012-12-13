@@ -13,7 +13,9 @@
       <h1>GIFKOBO</h1>
 
       <div class="row-fluid">
-        <div class="span6">
+        <div class="span6" id="dropbox" draggable="true">
+          <form id="upload" action="">
+          </form>
           <div id="images"></div>
         </div>
         <div class="span6">
