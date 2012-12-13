@@ -10,7 +10,11 @@
   <body>
     <h1>GIFBREW</h1>
     <div id="images"></div>
+
+    <canvas id="gif_sim"></canvas>
+
     <div id="debug"></div>
+
     <button id="get_gif">GET GIF</button>
     <form id="gif_form" action="">
       <div id="gif_delay_box">
@@ -23,6 +27,7 @@
         <input id="gif_size" type="number" max="1000" min="100" value="400" />
       </div>
     </form>
+
     <div id="gifs_container">
       <div id="gifs">
       </div>
@@ -30,7 +35,6 @@
         <img src="/images/ajax-loader.gif" alt="loader" id="loader" />
       </div>
     </div>
-    
 
     <script id="image_template" type="text/template">
       <div class="image_box">

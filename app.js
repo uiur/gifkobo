@@ -20,7 +20,7 @@ app.configure(function(){
   app.use(express.bodyParser());
   app.use(express.methodOverride());
   app.use(app.router);
-  app.use(express.static(app.get('image_dir'), { maxAge: 30 * 60 * 1000 }));
+  app.use(express.static(app.get('image_dir')));
   app.use(express.static(path.join(__dirname, 'public')));
 });
 
