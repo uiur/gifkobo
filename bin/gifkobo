@@ -14,11 +14,14 @@ program
 
 var THUMB_SIZE = 100;
 
-var image_dir = program.args[0]
+var image_dir = program.args[0] || './';
+
+image_dir = path.resolve(image_dir);
 
 if (image_dir.slice(-1) !== '/') {
   image_dir += '/';
 }
+
 
 var thumb_dir = path.join(image_dir, 'thumbs');
 

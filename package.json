@@ -7,7 +7,7 @@
     "gifkobo": "./bin/gifkobo"
   },
   "dependencies": {
-    "express": "3.0.0",
+    "express": "3.0.4",
     "hjs": "*",
     "commander": "*",
     "imagemagick": "*",
