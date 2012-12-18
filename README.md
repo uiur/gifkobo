@@ -2,6 +2,15 @@
 
 A web tool for creating gif animations like GifBoom.
 
+## Feature
+
+![](https://dl.dropbox.com/u/23470717/gifkobo/screenshot.gif)
+
+* Selectable UI like GifBoom
+* Live preview in canvas (on the right in the screenshot)
+* D&D upload
+* Works on Google Chrome
+
 ## Usage
 
 ``` bash
@@ -9,7 +18,7 @@ $ npm install gifkobo -g
 $ gifkobo /path/to/your/images/
 ```
 
-Or local install:
+Or local installation:
 ``` bash
 $ git clone https://github.com/uiureo/gifkobo.git
 $ cd gifkobo/
@@ -25,8 +34,6 @@ $ PORT=6789 gifkobo /path/to/your/images/
 There are catatsuy in example/.
 
 ![](https://dl.dropbox.com/u/23470717/catatsuy/catatsuy5.gif)
-
-Enjoy!
 
 ## License
 (The MIT License)
